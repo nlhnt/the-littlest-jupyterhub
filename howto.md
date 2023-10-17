@@ -11,3 +11,6 @@ Make some changes to the repository. You can test easily depending on what you c
 * If you changed the `bootstrap/bootstrap.py` script or any of its dependencies, you can test it by running python3 `/srv/src/bootstrap/bootstrap.py`.  
 * If you changed the `tljh/installer.py` code (or any of its dependencies), you can test it by running `python3 -m tljh.installer`.  
 * If you changed `tljh/jupyterhub_config.py`, `tljh/configurer.py`, `/opt/tljh/config/` or any of their dependencies, you only need to restart jupyterhub for them to take effect. `tljh-config` reload hub should do that. (Try calling `which tljh-config`).  
+
+## Service examples
+Look for how to develop JHub services in (here)[https://github.com/jupyterhub/jupyterhub/tree/main/examples/service-fastapi] and (here)[https://github.com/jupyterhub/jupyterhub-idle-culler]
