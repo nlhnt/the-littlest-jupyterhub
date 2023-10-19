@@ -10,6 +10,8 @@ from tljh.config import CONFIG_DIR, INSTALL_PREFIX, USER_ENV_PREFIX
 from tljh.user_creating_spawner import UserCreatingSpawner
 from tljh.utils import get_plugin_manager
 
+import sys
+
 c = get_config()  # noqa
 c.JupyterHub.spawner_class = UserCreatingSpawner
 
@@ -44,3 +46,26 @@ pm.hook.tljh_custom_jupyterhub_config(c=c)
 extra_configs = sorted(glob(os.path.join(CONFIG_DIR, "jupyterhub_config.d", "*.py")))
 for ec in extra_configs:
     load_subconfig(ec)
+
+
+
+# run get-users as a service
+
+c.JupyterHub.load_roles = [
+    {
+        "name": "get-users-idle",
+        "scopes": [
+            "read:users:activity", # read user last_activity
+            "servers", # start and stop servers
+            # 'admin:users' # needed if culling idle users as well
+        ]
+    }
+]
+
+c.JupyterHub.services = [
+    {
+        "name": "get-users-idle",
+        # "admin": True,
+        "command": [sys.executable, "get_users.py", "--timeout=3600"],
+    }
+]

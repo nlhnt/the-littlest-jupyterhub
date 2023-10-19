@@ -283,7 +283,25 @@ def update_services(c, config):
 
     if config["services"]["cull"]["enabled"]:
         c.JupyterHub.services.append(set_cull_idle_service(config))
+    
+    # c.JupyterHub.load_roles = [
+    #     {
+    #         "name": "get-users-idle",
+    #         "scopes": [
+    #             "read:users:activity", # read user last_activity
+    #             "servers", # start and stop servers
+    #             # 'admin:users' # needed if culling idle users as well
+    #         ]
+    #     }
+    # ]
 
+    # c.JupyterHub.services.append(
+    #     {
+    #         "name": "get-users-idle",
+    #         "admin": True,
+    #         "command": [sys.executable, "get_users.py", "--timeout=3600"],
+    #     }
+    # )
 
 def _merge_dictionaries(a, b, path=None, update=True):
     """

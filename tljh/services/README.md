@@ -1,0 +1,1 @@
+Service that logs the active users to console (periodically).
